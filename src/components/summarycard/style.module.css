@@ -1,0 +1,140 @@
+.summaryOrganization {
+  margin-right: -15px;
+  margin-left: -15px;
+  padding-top: 12px;
+  padding-right: 15px;
+  padding-bottom: 14px;
+  padding-left: 15px;
+}
+
+.summaryTableContainer {
+  position: relative;
+  padding-right: 70px;
+  width: 100%;
+}
+
+.summaryOrganization .table {
+  margin-bottom: 0;
+}
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+
+  background-color: transparent;
+
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.tableCondensed {
+}
+
+.factoidTable {
+}
+
+.factoidTable tr > td {
+  padding: 0 !important;
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+table td[class*="col"],
+table th[class*="col"] {
+  position: static;
+  display: table-cell;
+  float: none;
+}
+
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
+  /* padding: 8px; */
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+
+.colXs2 {
+  width: 16.66666667%;
+}
+
+.colXs1 {
+  width: 8.33333333%;
+}
+
+.colXs12 {
+  width: 100%;
+}
+
+.colXs4 {
+  width: 33.33333333%;
+}
+
+.colXs8 {
+  width: 66.66666667%;
+}
+
+.pullLeft {
+  float: left !important;
+}
+
+.pullRight {
+  float: right !important;
+}
+
+.summaryRating {
+  width: 47px;
+}
+
+.summaryRating img {
+  margin-top: 20px;
+  height: 18px;
+}
+img {
+  vertical-align: middle;
+}
+img {
+  border: 0;
+}
+
+.textCenter {
+  text-align: center !important;
+}
+
+.clearfix {
+    clear: both;
+    /* nyckeln till varför boxen var weird */
+}
+
+tbody, tr, td {
+    box-sizing: border-box;
+}
+
+@media (max-width: 767px) {
+  .hiddenXs {
+    display: none !important;
+  }
+}
+
+@media (max-width: 991px) and (min-width: 768px) {
+  .hiddenSm {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 992px) {
+  .hiddenMd {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hiddenLg {
+    display: none !important;
+  }
+}

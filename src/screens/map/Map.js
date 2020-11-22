@@ -1,4 +1,5 @@
 import React from "react";
+import SummaryCard from "../../components/summarycard/SummaryCard";
 
 import styles from "./style.module.css";
 
@@ -17,19 +18,26 @@ const Map = props => {
                   Visar 20 resultat av 240
                 </small>
                 <div className={styles.pullRight}>
-                  <label for="sorting">
+                  <label htmlFor="sorting">
                     <small>sortera:</small>
                   </label>
-                  <select className={`${styles.boxySelect} ${styles.boxySelectSmall}`} name="sorting">
+                  <select
+                    className={`${styles.boxySelect} ${styles.boxySelectSmall}`}
+                    name="sorting"
+                  >
                     <option>Relevans</option>
                     <option>Snittpris/m2 (Fallande)</option>
-
                   </select>
                 </div>
               </div>
             </div>
             <hr />
-            <div className={styles.summaryList}></div>
+            <div className={styles.summaryList}>
+              {/*<div style={{ height: 500, width: "100%", paddingBottom: 40, marginTop: 20}}></div>*/}
+              <SummaryCard />
+              <SummaryCard />
+              
+            </div>
             <div className={styles.textCenter}></div>
           </div>
         </div>
