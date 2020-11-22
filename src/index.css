@@ -25,3 +25,8 @@ code {
 small {
   font-size: 85%;
 }
+
+b, strong {
+  font-weight: 700;
+}
+
