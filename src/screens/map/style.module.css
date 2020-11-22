@@ -1,0 +1,113 @@
+.colmd12 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.colsm12 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.resulttop {
+  font-size: 90%;
+  line-height: 1.9;
+}
+
+.pullRight {
+  float: right !important;
+}
+
+.row {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.summarybrowser {
+  border-bottom: 1px solid #f6f6f6;
+}
+
+/* inkl även fixed height */
+
+.colsm8 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.colmd6 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.listbox {
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-top: 15px;
+  min-height: 200px;
+  background-color: white;
+}
+
+.summaryHeaderRow {
+}
+
+.summaryList hr {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+hr {
+  border: 0;
+  border-bottom: 1px solid #eee;
+}
+
+.textCenter {
+}
+
+label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+
+@media (min-width: 768px) {
+  .colsm8 {
+    width: 66.66666667%;
+    float: left;
+  }
+  .colsm12 {
+    width: 100%;
+    /*float: left;*/
+  }
+
+  .colsm4 {
+    width: 33.33333333%;
+    float: left;
+  }
+}
+
+@media (min-width: 992px) {
+  .colmd6 {
+    width: 50%;
+    float: left;
+  }
+}
+
+@media (max-width: 767px) {
+  .hidden {
+    display: none !important;
+  }
+}
+
+.mapbox {
+  background-color: #e5f2cf;
+  padding: 0;
+}
