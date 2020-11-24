@@ -4,7 +4,7 @@ import {
 } from "../actions/types";
 
 const INITIAL_STATE = {
-  realestates: [],
+  realestates: {},
   loading: true,
   error: "",
 };
@@ -15,6 +15,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         realestates: action.payload,
+        error: "",
         loading: false
       };
     case REALESTATES_FETCH_FAIL:
