@@ -22,7 +22,7 @@ const SummaryCard = ({ realestate }) => {
     rating_logo
   } = realestate;
 
-  console.log(rating_logo !== undefined && rating_logo !== null);
+  //console.log(rating_logo !== undefined && rating_logo !== null);
 
   return (
     <div className={styles.summaryOrganization}>

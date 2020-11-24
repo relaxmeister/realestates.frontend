@@ -10,36 +10,39 @@ const Map = props => {
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
 
+  const [city, setCity] = useState("stocksund"); //since its probably acquired from a previous page?
+  const [page, setPage] = useState(1);
+  const [orderBy, setOrderBy] = useState("");
+
   useEffect(() => {
-    props.fetchRealestates();
-
-    fetch("https://api.npms.io/v2/search?q=react")
-      .then(response => response.json())
-      .then(data => console.log("data total ", data.results));
-
-    fetch("https://api.npms.io/v2/search?q=react")
-      .then(response => response.json())
-      .then(data => console.log("data total ", data));
-
-      fetch("/items/summaries.json?query=stocksund")
-      .then(response => response.json())
-      .then(data => console.log("pooper ", data));
+    props.fetchRealestates(
+      `/items/summaries?query=${city}&page=${page}${orderBy}&debt_category=all&tax_status=pure%2Cunpure%2Cactive`
+    );
   }, []);
 
   useEffect(() => {
-    console.log("reduxstate", props.realestates.realestates.results);
-    if (props.realestates.realestates.organizations !== undefined && props.realestates.realestates.organizations.length > 0) {
-      console.log("true")
+    if (
+      props.realestates.realestates.organizations !== undefined &&
+      props.realestates.realestates.organizations.length > 0
+    ) {
+      console.log("true");
       setItems(items.concat(props.realestates.realestates.organizations));
     }
-    
 
     console.log("items", items);
   }, [props.realestates]);
+
+  useEffect(() => {
+    console.log("itemsReal", items);
+  }, [items]);
   /*
   _score;desc - relevans - börjar på denna
+  //default
   https://www.allabrf.se/items/summaries?query=Stockholm
+  https://www.allabrf.se/items/summaries?query=stocksund&page=2&debt_category=all&tax_status=pure%2Cunpure%2Cactive
+  https://www.allabrf.se/items/summaries?query=stocksund&page=2&debt_category=all&tax_status=pure%2Cunpure%2Cactive
   med klick
+  //riktiga relevans
   https://www.allabrf.se/items/summaries?query=stocksund&page=1&order=_score%3Bdesc&debt_category=all&tax_status=pure%2Cunpure%2Cactive
 
   price_per_m2;desc
@@ -71,20 +74,88 @@ const Map = props => {
   const sortBy = val => {
     //BÖR RESETTA TIDIGARE SÖKARRAY
     console.log(val);
-    //props.fetchRealestates();
+    setItems([]);
+    setPage(1);
+    setHasMore(true);
+    //setOrderBy("");
+    switch (val) {
+      case "_score;desc":
+        return setOrderBy("&order=_score%3Bdesc");
+      case "price_per_m2;desc":
+        return setOrderBy("&order=price_per_m2%3Bdesc");
+      case "price_per_m2;asc":
+        return setOrderBy("&order=price_per_m2%3Basc");
+      case "debt_per_m2;desc":
+        return setOrderBy("&order=debt_per_m2%3Bdesc");
+      case "debt_per_m2;asc":
+        return setOrderBy("&order=debt_per_m2%3Basc");
+      case "fee_per_m2;desc":
+        return setOrderBy("&order=fee_per_m2%3Bdesc");
+      case "fee_per_m2;asc":
+        return setOrderBy("&order=fee_per_m2%3Basc");
+      case "price_per_m2;desc":
+        return setOrderBy("&order=price_per_m2%3Bdesc");
+      case "price_per_m2;asc":
+        return setOrderBy("&order=price_per_m2%3Basc");
+      case "rating;desc":
+        return setOrderBy("&order=rating%3Bdesc");
+      case "rating;asc":
+        return setOrderBy("&order=rating%3Basc");
+      default:
+        return ""; //problematisk kanske då det inte blir en sök av det? 
+    }
+    //props.fetchRealestates("/items/summaries?query=stocksund&page=1&order=_score%3Bdesc&debt_category=all&tax_status=pure%2Cunpure%2Cactive");
   };
+
+  useEffect(() => {
+    console.log("currentPage", page);
+    // vi vill inte köra en direkt vid start vilket händer iom setState
+    // annars kör den direkt vid start vilken skulle kunna fixas genom att ta bort ovanstående, kanske bättre?
+    if (orderBy !== "") {
+      props.fetchRealestates(
+        `/items/summaries?query=${city}&page=${page}${orderBy}&debt_category=all&tax_status=pure%2Cunpure%2Cactive`
+      );
+    }
+  }, [orderBy]);
 
   const fetchMoreData = () => {
     /* Alla BRF ger oss "total": 52" från API:t (max 240) 12 sidor etc*/
-    if (items.length >= `${240}`) { //behöver bättre tweaking här för att få ett helt korrekt, förväntat resultat
+    console.log(
+      "fetchtotal",
+      props.realestates.realestates.total !== undefined
+        ? props.realestates.realestates.total -
+            props.realestates.realestates.organizations.length
+        : 0
+    );
+    if (
+      items.length >=
+      `${
+        props.realestates.realestates.total !== undefined
+          ? props.realestates.realestates.total
+          : 0
+      }`
+    ) {
+      //behöver bättre tweaking här för att få ett helt korrekt, förväntat resultat
       setHasMore(false);
       return;
     }
+
     //vi vet att vi sannolikt bryr oss om pages så vi kan ha en counter (om detta nu hade fungerat som det skulle);
     //var page; page++ etc och skickas med eller ännu bättre, ändra urlen som skickas in som parameter?
+    //mtp sortBy ändrar page så kanske inte bra då
+    setPage(page + 1);
     //http://www.drewleague.com/blog/ eller inte ändring av urlen? hmm
-    props.fetchRealestates();
   };
+
+  useEffect(() => {
+    console.log("currentPage", page);
+    if (page > 1) {
+      // annars kör den direkt vid start vilken skulle kunna fixas genom att ta bort ovanstående, kanske bättre?
+      props.fetchRealestates(
+        `/items/summaries?query=${city}&page=${page}${orderBy}&debt_category=all&tax_status=pure%2Cunpure%2Cactive`
+      );
+    }
+  }, [page]);
 
   return (
     <div className={styles.colmd12}>
@@ -98,16 +169,19 @@ const Map = props => {
             dataLength={items.length}
             next={fetchMoreData}
             hasMore={hasMore}
-            loader={<h4>Loading...</h4>}
+            loader={<h4 style={{ height: 200 }}>Loading...</h4>}
             scrollableTarget="scrollableDiv"
-            style={{ overflow: 'hidden',}}
+            style={{ overflow: "hidden" }}
           >
             <div className={styles.summaryList}>
               <div className={`${styles.row} ${styles.summaryHeaderRow}`}>
                 <div className={styles.colsm12}>
                   <small className={styles.resulttop}>
                     {/*Visar 20 resultat av 240*/}
-                    Visar {items.length} resultat av {props.realestates.realestates.total !== undefined ? props.realestates.realestates.total : 0}
+                    Visar {items.length} resultat av{" "}
+                    {props.realestates.realestates.total !== undefined
+                      ? props.realestates.realestates.total
+                      : 0}
                   </small>
                   <div className={styles.pullRight}>
                     <label htmlFor="sorting">
@@ -145,8 +219,8 @@ const Map = props => {
               </div>
               <hr />
               <div className={styles.summaryList}>
-              {items.map((i, index) => (
-                  <SummaryCard key={index} realestate={i}/>
+                {items.map((i, index) => (
+                  <SummaryCard key={index} realestate={i} />
                 ))}
                 {/*<div style={{ height: 500, width: "100%", paddingBottom: 40, marginTop: 20}}></div>*/}
                 {/*<SummaryCard />
