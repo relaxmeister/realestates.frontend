@@ -1,15 +1,20 @@
-# Getting Started with Create React App
+# DISPLAY A LIST OF REALESTATES 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## GOAL
 
-## Available Scripts
+Using a company's production API to fetch data and replicate a part of their webside's view and functionality.
+The functionality originally mainly consisted of a dropdown-menu to enable sorting and a bonus objective were to add on-scroll pagination.
 
-In the project directory, you can run:
+## NOTE
 
-### `npm start`
+Data such as city is "hardcoded" on purpose as it was nothing you could change on the original page (unless tweaking with the url).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## USEAGE
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+clone
+
+npm install
+
+npm start
+
+## END
