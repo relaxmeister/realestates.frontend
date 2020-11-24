@@ -1,11 +1,12 @@
 import { REALESTATES_FETCH_SUCCESS, REALESTATES_FETCH_FAIL } from "./types";
 
-export const fetchRealestates = () => {
+export const fetchRealestates = (fullText) => {
   console.log("fetched!!!");
+  console.log("fulltext", fullText);
 
   
   return dispatch => {
-    fetch("/items/summaries.json?query=stocksund", {
+    fetch(fullText, {
       method: "GET",
       headers: {
         /*"access-control-allow-headers": "Access-Control-Allow-Origin,DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range",
